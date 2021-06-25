@@ -6,10 +6,16 @@ public class SmallTest {
     private static final int NUM_ACTIONS = 30;
     private static ZooObserver[] observers = null;
 
+    /**
+     * Sets seed to random
+     */
     public static void setSeed(long seed) {
         rnd.setSeed(seed);
     }
 
+    /**
+     * Initializes observers list
+     */
     private static void initializeObservers() {
         String[] names = {"Avi", "Dani", "David", "Shahar", "Shimon", "Amit"};
         observers = new ZooObserver[names.length];
@@ -18,6 +24,9 @@ public class SmallTest {
         }
     }
 
+    /**
+     * Runs entire test on zoo
+     */
     public static void runTest() {
         initializeObservers();
 
