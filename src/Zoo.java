@@ -9,6 +9,7 @@ public class Zoo {
     private int happinessLevel;
     private HashMap<String, Integer> mapAnimals;
     private ArrayList<ZooObserver> observers;
+    private String messageType = "";
 
     private Zoo() {
         this.animalsList = new ArrayList<Animal>();
@@ -29,28 +30,45 @@ public class Zoo {
     }
 
     public void addAnimal(Animal animal) {
-        if(!this.mapAnimals.containsKey(animal.getName()))
-            this.mapAnimals.put(animal.getName(), 0);
-        this.mapAnimals.replace(animal.getName(), this.mapAnimals.get(animal.getName()) + 1);
+        String animalName = animal.getName();
+        if(!this.mapAnimals.containsKey(animalName))
+            this.mapAnimals.put(animalName, 0);
+        this.mapAnimals.replace(animalName, this.mapAnimals.get(animalName) + 1);
         this.animalsList.add(animal);
-        // Need to notify
+
+        this.messageType = animalName + " has been added to the zoo!";
+        notifyObserver();
     }
 
     public void feedAnimals() {
-        this.hungerLevel--;
+        if (this.hungerLevel > 1)
+            this.hungerLevel--;
         for(int i = 0; i < this.animalsList.size(); i++) {
             this.animalsList.get(i).feedRole();
         }
-        // Should update observer and print
+
+        this.messageType = "The animals are being fed";
+        notifyObserver();
     }
 
     public void watchAnimals() {
-        this.happinessLevel++;
-        this.hungerLevel++;
+        if (this.happinessLevel < 5)
+            this.happinessLevel++;
+        if (this.hungerLevel < 5)
+            this.hungerLevel++;
         for(int i = 0; i < this.animalsList.size(); i++) {
             this.animalsList.get(i).showRole();
         }
-        //Should update observer and print
+
+        this.messageType = "The animals are being watched";
+        notifyObserver();
+    }
+
+    public void notifyObserver() {
+        System.out.println("Notifying observers:");
+        for (ZooObserver observer : this.observers) {
+            observer.display(this.messageType);
+        }
     }
 
     public void addObserver(ZooObserver observer) {
@@ -71,14 +89,10 @@ public class Zoo {
         System.out.println("Happiness level: " + this.happinessLevel);
         if(this.happinessLevel < 3)
             System.out.println("The animals are not happy, you should watch them...");
-        else if(this.happinessLevel > 3)
+        else
             System.out.println("The animals are very happy, keep working hard...");
         System.out.println("Hunger level: " + this.hungerLevel);
         if(this.hungerLevel > 3)
             System.out.println("The animals are hungry, you should feed them...");
-
-        
     }
-
-
 }

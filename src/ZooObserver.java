@@ -5,4 +5,8 @@ public class ZooObserver {
     public ZooObserver(String name) {
         this.name = name;
     }
+
+    public void display(String messageType) {
+        System.out.println("[" + this.name + "] " + messageType);
+    }
 }
