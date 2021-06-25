@@ -15,7 +15,6 @@ public class Zoo {
     private static int MAXIMUM_LEVEL = 5;
     private static int MINIMUM_LEVEL = 1;
 
-
     /**
      * Constructor for Zoo
      * Sets hunger level and happiness level to default, and creates new
